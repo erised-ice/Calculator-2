@@ -1,57 +1,63 @@
-@import url('https://fonts.googleapis.com/css?family=Major+Mono+Display');
-
-.form {
-  padding: 20px;
-  background:  linear-gradient(to top left, #b6f147 36%, #87f52d 100%);
-  width: 100%;
-  max-width: 330px;
-  margin: 15px auto;
-  box-shadow: #b6f147;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+body {
+  background: #05594f;
 }
 
-.display {
-  width: 100%;
-  font-size: 40px;
-  margin-bottom: 15px;
-  background:  linear-gradient(to bottom right, #fffd8e  36%, #fffc56 100%);
-  border: none;
-}
-
-.keys__inner {
-  display: flex;
-  justify-content: space-between;
-}
-
-.keys__digits {
-  display: flex;
-  flex-wrap: wrap-reverse;
-  justify-content: space-between;
-  margin-right: 10px;
+.calculator {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-areas: "display display" "digits operations";
+  max-width: 350px;
+  margin: 150px auto 0;
+  background: #ddff00;
+  padding: 15px 10px;
+  border-radius: 5px;
+  gap: 15px;
 }
 
 .button {
-  padding: 5px;
-  font-size: 25px;
-  width: 50px;
-  margin-bottom: 10px;
-  background: yellow;
-  background:  linear-gradient(to bottom right, #fdfa21  26%, #eeff00 60%, #d7f33b 90%);
+  background: #0a9484;
+  height: 50px;
   border: none;
-  font-family: 'Major Mono Display', monospace;
+  border-radius: 5px;
+  color: #ddff00;
+  font-weight: bold;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.9;
 }
 
 .button:focus {
   outline: none;
 }
 
-.keys__operations {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.display {
+  grid-area: display;
+  height: 40px;
+  background: #0baf9c;
 }
 
-.button__enter {
-  display: block;
-  width: 115px;
+.digits {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap-reverse;
+  justify-content: space-between;
+  grid-area: digits;
+}
+
+.digits-button {
+  flex-basis: 30%;
+}
+
+.operations {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  grid-area: operations;
+}
+
+.wide {
+  grid-column: span 2;
 }
