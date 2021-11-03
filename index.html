@@ -6,10 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Calculator-2</title>
   <link rel="stylesheet" href="css/screen.css">
+  <link rel="stylesheet" href="css/pink-theme.css">
 </head>
-<body>
+<body class="body js-body">
   <form class="calculator" method="POST" action="">
-    <input class="display" type="text" name="" id="" value="" disabled>
+    <label for="display"></label>
+    <input class="display js-display" type="text" name="" id="display" value="" disabled>
     <div class="digits">
       <button class="button digits-button">+/-</button>
       <button class="button digits-button js-button-digit" value="0">0</button>
@@ -33,6 +35,11 @@
       <button class="button operations-button wide">=</button>
     </div>
   </form>
+  <button class="button theme-button js-theme-button">Change theme</button>
+  <div class="count">
+    <button class="button count-button js-count-button"></button>
+    <div class="count-circle"></div>
+  </div>
   <script src="js/script.js"></script>
 </body>
 </html>
