@@ -21,12 +21,50 @@ countButton.onclick = function () {
 
 /* Вывод цифр */
 
-for (let digitButton of digitButtons) {
-  digitButton.onclick = function () {
+/*for (let digitButton of digitButtons) {
+  digitButton.onclick = function (event) {
+    event.preventDefault();
     display.value = display.value + digitButton.value;
   }
 }
 
 clearButton.onclick = function () {
   display.value = 0;
+}
+*/
+
+/* Сумма */
+
+/* storage */
+let operation = null;
+let firstOperand = '';
+let secondOperand = '';
+let result = '';
+/**/
+let sumButton = document.querySelector('.js-button-sum');
+
+sumButton.onclick = function (event) {
+  event.preventDefault();
+  operation = sumButton.value;
+}
+
+resultButton = document.querySelector('.result');
+resultButton.onclick = function (event) {
+  event.preventDefault();
+  result = 'result';
+  display.value = firstOperand + secondOperand;
+}
+
+for (let digitButton of digitButtons) {
+  digitButton.onclick = function (event) {
+    event.preventDefault();
+    
+    if (operation === 'sum') {
+      secondOperand = secondOperand + digitButton.value;
+      display.value = secondOperand;
+    } else {
+      firstOperand = firstOperand + digitButton.value;
+      display.value = firstOperand;
+    }
+  }
 }
