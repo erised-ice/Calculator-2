@@ -1,25 +1,37 @@
-let body = document.querySelector('.js-body');
-let themeButton = document.querySelector('.js-theme-button');
-let countButton = document.querySelector('.js-count-button');
-let pressNumber = document.querySelector('.count-circle');
-let counter = 0;
-let display = document.querySelector('.js-display');
-let digitButtons = document.querySelectorAll('.js-button-digit');
-let operationButtons = document.querySelectorAll('.js-button-operations');
-let clearButton = document.querySelector('.js-clear-button');
-let resultButton = document.querySelector('.js-result-button');
+const body = document.body;
+const themeButton = document.querySelector('.js-theme-button');
+const countButton = document.querySelector('.js-count-button');
+const pressesNumberOutput = document.querySelector('.count-circle');
+const display = document.querySelector('.js-display');
+const digitButtons = document.querySelectorAll('.js-button-digit');
+const operationButtons = document.querySelectorAll('.js-button-operations');
+const clearButton = document.querySelector('.js-clear-button');
+const resultButton = document.querySelector('.js-result-button');
 
 /* Меняем тему */
-themeButton.onclick = function () {
+const themeHandler = function () {
   body.classList.toggle('pink-theme');
 }
 
+themeButton.addEventListener("click", themeHandler);
+
 /* Счетчик нажатий */
-countButton.onclick = function () {
+let counter = 0;
+
+const increasePressesNumber = function () {
   counter++;
-  pressNumber.textContent = counter;
+  pressesNumberOutput.textContent = counter;
+}
+
+const handleCountButtonView = function () {
   countButton.classList.toggle('pressed');
 }
+
+countButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  increasePressesNumber();
+  handleCountButtonView();
+})
 
 /* Калькулятор */
 
@@ -29,14 +41,18 @@ let firstOperand = '';
 let secondOperand = '';
 /**/
 
-for (let operationButton of operationButtons) {
-  operationButton.onclick = function (event) {
-    event.preventDefault();
-    operation = operationButton.value;
-  }
+const getOperationValue = function (element) {
+  operation = element.value;
 }
 
-resultButton.onclick = function (event) {
+for (let operationButton of operationButtons) {
+  operationButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    getOperationValue(operationButton);
+  })
+}
+
+resultButton.addEventListener("click", function (event) {
   event.preventDefault();
   firstOperand = Number(firstOperand);
   secondOperand = Number(secondOperand);
@@ -54,20 +70,20 @@ resultButton.onclick = function (event) {
   firstOperand = '';
   secondOperand = '';
   operation = '';
-}
+})
 
-clearButton.onclick = function (event) {
+clearButton.addEventListener("click", function (event) {
   event.preventDefault();
   display.value = '';
   firstOperand = '';
   secondOperand = '';
   operation = '';
-}
+})
 
 for (let digitButton of digitButtons) {
-  digitButton.onclick = function (event) {
+  digitButton.addEventListener("click", function (event) {
     event.preventDefault();
-    
+  
     if (operation !== '') {
       secondOperand = secondOperand + digitButton.value;
       display.value = secondOperand;
@@ -75,5 +91,5 @@ for (let digitButton of digitButtons) {
       firstOperand = firstOperand + digitButton.value;
       display.value = firstOperand;
     }
-  }
+  })
 }
