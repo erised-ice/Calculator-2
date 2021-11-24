@@ -41,14 +41,14 @@ let firstOperand = '';
 let secondOperand = '';
 /**/
 
-const getOperationValue = function (element) {
-  operation = element.value;
+const getOperationValue = function (event) {
+  event.preventDefault();
+  operation = event.target.value;
 }
 
 for (let operationButton of operationButtons) {
   operationButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    getOperationValue(operationButton);
+    getOperationValue(event);
   })
 }
 
@@ -56,15 +56,20 @@ resultButton.addEventListener("click", function (event) {
   event.preventDefault();
   firstOperand = Number(firstOperand);
   secondOperand = Number(secondOperand);
-  
-  if (operation === 'sum') {
-    display.value = firstOperand + secondOperand;
-  } else if (operation === 'minus') {
-    display.value = firstOperand - secondOperand;
-  } else if (operation === 'divide') {
-    display.value = firstOperand / secondOperand;
-  } else if (operation === 'multiply') {
-    display.value = firstOperand * secondOperand;
+  switch (operation) {
+    case 'sum':
+      display.value = firstOperand + secondOperand;
+      break;
+    case 'minus':
+      display.value = firstOperand - secondOperand;
+      break;
+    case 'divide':
+      display.value = firstOperand / secondOperand;
+      break;
+    case 'multiply':
+      display.value = firstOperand * secondOperand;
+      break;
+    default: return;
   }
   
   firstOperand = '';
@@ -80,10 +85,10 @@ clearButton.addEventListener("click", function (event) {
   operation = '';
 })
 
-for (let digitButton of digitButtons) {
+digitButtons.forEach((digitButton) => {
   digitButton.addEventListener("click", function (event) {
     event.preventDefault();
-  
+    
     if (operation !== '') {
       secondOperand = secondOperand + digitButton.value;
       display.value = secondOperand;
@@ -92,4 +97,4 @@ for (let digitButton of digitButtons) {
       display.value = firstOperand;
     }
   })
-}
+})
