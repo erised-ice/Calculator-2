@@ -1,0 +1,22 @@
+/* Pink theme */
+.pink-theme.body {
+  background: #ffffa6;
+}
+
+.pink-theme .calculator {
+  background: #ff4b8a;
+}
+
+.pink-theme .button {
+  background: #fa7d90;
+  color: #fce654;
+}
+
+.pink-theme .display {
+  background: #f5abc4;
+}
+
+.pink-theme .count-circle {
+  background: #fce654;
+  color: #fa7d90;
+}
