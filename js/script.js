@@ -40,13 +40,13 @@ let firstOperand = '';
 let secondOperand = '';
 /**/
 
-const getOperationValue = (event) => operation = event.target.value;
+const getOperationValue = event => operation = event.target.value;
 
 operationButtons.forEach((operationButton) => {
   operationButton.addEventListener("click", getOperationValue);
 })
 
-const handleClickDigitButton = (event) => {
+const handleClickDigitButton = event => {
   if (operation !== '') {
     secondOperand = secondOperand + event.target.value;
     display.value = secondOperand;
