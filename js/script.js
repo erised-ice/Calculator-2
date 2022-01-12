@@ -1,7 +1,7 @@
 const body = document.body;
 const themeButton = document.querySelector('.js-theme-button');
 const countButton = document.querySelector('.js-count-button');
-const pressesNumberOutput = document.querySelector('.count-circle');
+const pressesCounterOutput = document.querySelector('.count-circle');
 const display = document.querySelector('.js-display');
 const digitButtons = document.querySelectorAll('.js-button-digit');
 const operationButtons = document.querySelectorAll('.js-button-operations');
@@ -12,25 +12,21 @@ const resultButton = document.querySelector('.js-result-button');
 let counter = 0;
 
 /* Меняем тему */
-const setTheme = function () {
-  body.classList.toggle('pink-theme');
-}
+const setTheme = () => body.classList.toggle('pink-theme');
 
 themeButton.addEventListener("click", setTheme);
 
 /* Счетчик нажатий */
 
-const increasePressesNumber = function () {
+const increasePressesCounterValue = () => {
   counter++;
-  pressesNumberOutput.textContent = counter;
+  pressesCounterOutput.textContent = counter;
 }
 
-const handleCountButtonView = function () {
-  countButton.classList.toggle('pressed');
-}
+const handleCountButtonView = () => countButton.classList.toggle('pressed');
 
-const handleCountButtonClick = function () {
-  increasePressesNumber();
+const handleCountButtonClick = () => {
+  increasePressesCounterValue();
   handleCountButtonView();
 }
 
@@ -44,15 +40,13 @@ let firstOperand = '';
 let secondOperand = '';
 /**/
 
-const getOperationValue = function (event) {
-  operation = event.target.value;
-}
+const getOperationValue = (event) => operation = event.target.value;
 
 operationButtons.forEach((operationButton) => {
   operationButton.addEventListener("click", getOperationValue);
 })
 
-const handleClickDigitButton = function (event) {
+const handleClickDigitButton = (event) => {
   if (operation !== '') {
     secondOperand = secondOperand + event.target.value;
     display.value = secondOperand;
@@ -66,7 +60,7 @@ digitButtons.forEach((digitButton) => {
   digitButton.addEventListener("click", handleClickDigitButton);
 });
 
-const handleClickResultButton = function () {
+const handleClickResultButton = () => {
   firstOperand = Number(firstOperand);
   secondOperand = Number(secondOperand);
   switch (operation) {
@@ -92,7 +86,7 @@ const handleClickResultButton = function () {
 
 resultButton.addEventListener("click", handleClickResultButton);
 
-const resetCalculator = function () {
+const resetCalculator = () => {
   display.value = '';
   firstOperand = '';
   secondOperand = '';
