@@ -1,37 +1,36 @@
 const body = document.body;
 const themeButton = document.querySelector('.js-theme-button');
 const countButton = document.querySelector('.js-count-button');
-const pressesNumberOutput = document.querySelector('.count-circle');
+const pressesCounterOutput = document.querySelector('.count-circle');
 const display = document.querySelector('.js-display');
 const digitButtons = document.querySelectorAll('.js-button-digit');
 const operationButtons = document.querySelectorAll('.js-button-operations');
 const clearButton = document.querySelector('.js-clear-button');
 const resultButton = document.querySelector('.js-result-button');
 
-/* Меняем тему */
-const themeHandler = function () {
-  body.classList.toggle('pink-theme');
-}
-
-themeButton.addEventListener("click", themeHandler);
-
 /* Счетчик нажатий */
 let counter = 0;
 
-const increasePressesNumber = function () {
+/* Меняем тему */
+const setTheme = () => body.classList.toggle('pink-theme');
+
+themeButton.addEventListener("click", setTheme);
+
+/* Счетчик нажатий */
+
+const increasePressesCounterValue = () => {
   counter++;
-  pressesNumberOutput.textContent = counter;
+  pressesCounterOutput.textContent = counter;
 }
 
-const handleCountButtonView = function () {
-  countButton.classList.toggle('pressed');
-}
+const handleCountButtonView = () => countButton.classList.toggle('pressed');
 
-countButton.addEventListener("click", function (event) {
-  event.preventDefault();
-  increasePressesNumber();
+const handleCountButtonClick = () => {
+  increasePressesCounterValue();
   handleCountButtonView();
-})
+}
+
+countButton.addEventListener("click", handleCountButtonClick);
 
 /* Калькулятор */
 
@@ -41,19 +40,27 @@ let firstOperand = '';
 let secondOperand = '';
 /**/
 
-const getOperationValue = function (event) {
-  event.preventDefault();
-  operation = event.target.value;
+const getOperationValue = event => operation = event.target.value;
+
+operationButtons.forEach((operationButton) => {
+  operationButton.addEventListener("click", getOperationValue);
+})
+
+const handleClickDigitButton = event => {
+  if (operation !== '') {
+    secondOperand = secondOperand + event.target.value;
+    display.value = secondOperand;
+  } else {
+    firstOperand = firstOperand + event.target.value;
+    display.value = firstOperand;
+  }
 }
 
-for (let operationButton of operationButtons) {
-  operationButton.addEventListener("click", function (event) {
-    getOperationValue(event);
-  })
-}
+digitButtons.forEach((digitButton) => {
+  digitButton.addEventListener("click", handleClickDigitButton);
+});
 
-resultButton.addEventListener("click", function (event) {
-  event.preventDefault();
+const handleClickResultButton = () => {
   firstOperand = Number(firstOperand);
   secondOperand = Number(secondOperand);
   switch (operation) {
@@ -75,26 +82,15 @@ resultButton.addEventListener("click", function (event) {
   firstOperand = '';
   secondOperand = '';
   operation = '';
-})
+}
 
-clearButton.addEventListener("click", function (event) {
-  event.preventDefault();
+resultButton.addEventListener("click", handleClickResultButton);
+
+const resetCalculator = () => {
   display.value = '';
   firstOperand = '';
   secondOperand = '';
   operation = '';
-})
+};
 
-digitButtons.forEach((digitButton) => {
-  digitButton.addEventListener("click", function (event) {
-    event.preventDefault();
-    
-    if (operation !== '') {
-      secondOperand = secondOperand + digitButton.value;
-      display.value = secondOperand;
-    } else {
-      firstOperand = firstOperand + digitButton.value;
-      display.value = firstOperand;
-    }
-  })
-})
+clearButton.addEventListener("click", resetCalculator)
